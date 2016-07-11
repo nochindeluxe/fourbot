@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class GameParser {
    
-    private Scanner scanner; 
-    private GameSettings gameSettings;
-    private GameState gameState;
-    private Bot bot;
+    private final Scanner scanner; 
+    private final GameSettings gameSettings;
+    private final GameState gameState;
+    private final Bot bot;
     
     public GameParser() {
         scanner = new Scanner(System.in);

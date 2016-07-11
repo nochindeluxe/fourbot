@@ -43,13 +43,11 @@ public class GameState {
     }
     
     private void parseField(String fieldString) {
-        System.err.println("parsing field string: "+fieldString);
         String[] rows = fieldString.split(";");
         field = new int[rows[0].split(",").length][rows.length];
         for(int i=0; i<rows.length; i++) {
             String[] rowCells = rows[i].split(",");
             for(int j=0; j<rowCells.length; j++) {
-                System.err.println("field size - col: "+i+"  row: "+j);
                 field[j][i] = Integer.parseInt(rowCells[j]);   
             }
         }        
