@@ -54,6 +54,33 @@ public class FieldAnalyzer {
         return null;
     }
     
-   
+    public boolean cellHasWinCondition(Cell cell) {
+	int cellCol = cell.getCol();
+	int cellRow = cell.getRow();
+	
+	int checkerCounter = 0;
+	boolean winAvailable = false;
+	
+	//check for 3 below
+	int currentCol = cellCol;
+	for(int i=0; i<3; i++) {
+            currentCol++;
+            if(currentCol < field.getColNum()) {
+                Cell checkCell = field.getCell(currentCol, cellRow);
+                if(checkCell.getChecker() > 0) {
+                    checkerCounter++;			
+                }
+            }
+
+            if(checkerCounter >= 3) {
+                    return true;
+            }
+	}
+	
+	//check for 3 across
+	
+	
+	return winAvailable;
+}
     
 }

@@ -42,6 +42,7 @@ public class GameState {
         return round;
     }
     
+    //parses into (col, row)
     private void parseField(String fieldString) {
         String[] rows = fieldString.split(";");
         field = new int[rows[0].split(",").length][rows.length];
