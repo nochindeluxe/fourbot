@@ -20,9 +20,9 @@ public class Bot {
         fieldAnalyzer.updateField(gameState.getField());
         //int openCell = fieldAnalyzer.getFirstOpenCell();
         ArrayList<Cell> moves = fieldAnalyzer.getMoves();
-        for(Cell cell : moves) {
-            System.err.println("Available moves: "+cell.getCol()+", "+cell.getRow());
-        }
+//        for(Cell cell : moves) {
+//            System.err.println("Available moves: "+cell.getCol()+", "+cell.getRow());
+//        }
         move = "place_disc "+String.valueOf(moves.get(0).getCol());
         
         return move;
