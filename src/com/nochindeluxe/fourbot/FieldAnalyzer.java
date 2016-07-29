@@ -55,14 +55,21 @@ public class FieldAnalyzer {
     }
     
     public boolean cellHasWinCondition(Cell cell) {
-	int cellCol = cell.getCol();
-	int cellRow = cell.getRow();
-
-	return false;
+	return 
+                playerHasVerticalWinCondition(1, cell) ||
+                playerHasVerticalWinCondition(2, cell) ||
+                
+                playerHasHorizontalWinCondition(1, cell) ||
+                playerHasHorizontalWinCondition(2, cell) ||
+                
+                playerHasEastDiagWinCondition(1, cell) ||
+                playerHasEastDiagWinCondition(2, cell) ||
+                
+                playerHasWestDiagWinCondition(1, cell) ||
+                playerHasWestDiagWinCondition(2, cell);
     }
     
-    private boolean playerHasWinCondition(int player, Cell cell) {
-        
+    private boolean playerHasVerticalWinCondition(int player, Cell cell) {
         return false;
     }
     
@@ -97,12 +104,14 @@ public class FieldAnalyzer {
 
         //set 2: -2 +1
         for(int i=2; i>-2; i--) {
-            if(cell.getCol()-i >= 0 && cell.getCol()-i < field.getColNum() && i != 0) {
-                targetCell = field.getCell(cell.getCol()-i, cell.getRow());
-                if(targetCell.getChecker() != player) {
-                    break;
-                } else if(i == -1) {
-                    winAvailable = true;
+            if(cell.getCol()-i >= 0 && cell.getCol()-i < field.getColNum()) {
+                if(i != 0) {
+                    targetCell = field.getCell(cell.getCol()-i, cell.getRow());
+                    if(targetCell.getChecker() != player) {
+                        break;
+                    } else if(i == -1) {
+                        winAvailable = true;
+                    }
                 }
             } else {
                 break;
@@ -111,12 +120,14 @@ public class FieldAnalyzer {
         
         //set 3: -1 +2
         for(int i=-1; i<3; i++) {
-            if(cell.getCol()+i >= 0 && cell.getCol()+i < field.getColNum() && i != 0) {
-                targetCell = field.getCell(cell.getCol()+i, cell.getRow());
-                if(targetCell.getChecker() != player) {
-                    break;
-                } else if(i == -1) {
-                    winAvailable = true;
+            if(cell.getCol()+i >= 0 && cell.getCol()+i < field.getColNum()) {
+                if(i != 0) {
+                    targetCell = field.getCell(cell.getCol()+i, cell.getRow());
+                    if(targetCell.getChecker() != player) {
+                        break;
+                    } else if(i == -1) {
+                        winAvailable = true;
+                    }
                 }
             } else { 
                 break;
@@ -140,6 +151,125 @@ public class FieldAnalyzer {
         return winAvailable;
     }
     
+    private boolean playerHasEastDiagWinCondition(int player, Cell cell) {
+        Cell targetCell;
+        boolean winAvailable = false;
+        
+        //max 3 sets (6 checker max) -- if set doesn't have >4 checkers,
+        //it auto fails win condition
+        
+        //set 1: (-3, +3) 
+        for(int i=3; i>0; i--) {
+            if(cell.getCol()-i >= 0 && cell.getRow()+i <= 5) {
+                targetCell = field.getCell(cell.getCol()-i, cell.getRow()+i);
+                if(targetCell.getChecker() != player) {
+                    break;
+                } else if(i == 1) {
+                    winAvailable = true;
+                }
+            } else {
+                break;
+            }
+        }
+        
+        //set 2: (-2, +2) (+1, -1)
+        for(int i=2; i>-2; i--) {
+            if(cell.getCol()-i >= 0 && 
+                    cell.getCol()-i <= 6 &&
+                    cell.getRow()+i <= 5 && 
+                    cell.getRow()+i >=0) {
+                if(i != 0) {
+                    targetCell = field.getCell(cell.getCol()-i, cell.getRow()+i);
+                    if(targetCell.getChecker() != player) {
+                        break;
+                    } else if(i == -1) {
+                        winAvailable = true;
+                    }
+                }
+            } else {
+                break;
+            }
+        }
+        
+        //set 3: (-1, +1) (+2, -2)
+        for(int i=1; i>-3; i--) {
+            if(cell.getCol()-i >= 0 && 
+                    cell.getCol()-i <= 6 && 
+                    cell.getRow()+i <= 5 && 
+                    cell.getRow()+i >= 0) {
+                if(i != 0) {
+                    targetCell = field.getCell(cell.getCol()-i, cell.getRow()+i);
+                    if(targetCell.getChecker() != player) {
+                        break;
+                    } else if(i == -2) {
+                        winAvailable = true;
+                    }
+                }
+            } else {
+                break;
+            }
+        }
+        
+        return winAvailable;
+    }
     
+    private boolean playerHasWestDiagWinCondition(int player, Cell cell) {
+        Cell targetCell;
+        boolean winAvailable = false;
+        
+        //set 1: (-3, -3) 
+        for(int i=3; i>0; i--) {
+            if(cell.getCol()-i >= 0 && cell.getRow()-i >= 0) {
+                targetCell = field.getCell(cell.getCol()-i, cell.getRow()-i);
+                if(targetCell.getChecker() != player) {
+                    break;
+                } else if(i == 1) {
+                    winAvailable = true;
+                }
+            } else {
+                break;
+            }
+        }
+        
+        //set 2: (-2, -2) (+1, +1)
+        for(int i=2; i>-2; i--) {
+            if(cell.getCol()-i >= 0 && 
+                    cell.getCol()-i <= 6 &&
+                    cell.getRow()-i <= 5 && 
+                    cell.getRow()-i >=0) {
+                if(i != 0) {
+                    targetCell = field.getCell(cell.getCol()-i, cell.getRow()-i);
+                    if(targetCell.getChecker() != player) {
+                        break;
+                    } else if(i == -1) {
+                        winAvailable = true;
+                    }
+                }
+            } else {
+                break;
+            }
+        }
+        
+        //set 3: (-1, -1) (+2, +2)
+        for(int i=1; i>-3; i--) {
+            if(cell.getCol()-i >= 0 && 
+                    cell.getCol()-i <= 6 && 
+                    cell.getRow()-i <= 5 && 
+                    cell.getRow()-i >= 0) {
+                if(i != 0) {
+                    targetCell = field.getCell(cell.getCol()-i, cell.getRow()-i);
+                    if(targetCell.getChecker() != player) {
+                        break;
+                    } else if(i == -2) {
+                        winAvailable = true;
+                    }
+                }
+            } else {
+                break;
+            }
+        }
+        
+        return winAvailable;
+    }
     
 }
