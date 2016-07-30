@@ -70,7 +70,22 @@ public class FieldAnalyzer {
     }
     
     private boolean playerHasVerticalWinCondition(int player, Cell cell) {
-        return false;
+        Cell targetCell;
+        boolean winAvailable = false;
+        
+        for(int i=3; i>0; i--) {
+            if(cell.getRow()+i <= 5) {
+                targetCell = field.getCell(cell.getCol(), cell.getRow()+i);
+                if(targetCell.getChecker() != player) {
+                    break;
+                } else if(i == 1) {
+                    winAvailable = true;
+                }
+            } else {
+                break;
+            }
+        }
+        return winAvailable;
     }
     
     private boolean playerHasHorizontalWinCondition(int player, Cell cell) {

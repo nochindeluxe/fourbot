@@ -1,6 +1,7 @@
 package com.nochindeluxe.fourbot;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Bot {
     
@@ -18,12 +19,20 @@ public class Bot {
         String move = "";
         
         fieldAnalyzer.updateField(gameState.getField());
-        //int openCell = fieldAnalyzer.getFirstOpenCell();
         ArrayList<Cell> moves = fieldAnalyzer.getMoves();
-//        for(Cell cell : moves) {
-//            System.err.println("Available moves: "+cell.getCol()+", "+cell.getRow());
-//        }
-        move = "place_disc "+String.valueOf(moves.get(0).getCol());
+        
+        //If a win condition exists, play that move
+        for(Cell cell : moves) {
+            if(fieldAnalyzer.cellHasWinCondition(cell)) {
+                move = "place_disc "+String.valueOf(cell.getCol());
+                return move;
+            }
+        }
+        
+        //Otherwise, choose a random move
+        Random random = new Random();
+        int randomMove = random.nextInt(moves.size());
+        move = "place_disc "+String.valueOf(moves.get(randomMove).getCol());
         
         return move;
     }
