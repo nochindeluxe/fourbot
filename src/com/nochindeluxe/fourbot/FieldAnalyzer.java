@@ -9,12 +9,22 @@ public class FieldAnalyzer {
     
     public FieldAnalyzer() {
         field = new Field();
+        colNum = field.getColNum();
+        rowNum = field.getRowNum();
     }
     
     public void updateField(int[][] fieldUpdate) {
         colNum = fieldUpdate.length;
         rowNum = fieldUpdate[0].length;
         field.update(fieldUpdate);
+    }
+    
+    public int getColNum() {
+        return colNum;
+    }
+    
+    public int getRowNum() {
+        return rowNum;
     }
     
     public int getFirstOpenCell() {
@@ -69,7 +79,7 @@ public class FieldAnalyzer {
                 playerHasWestDiagWinCondition(2, cell);
     }
     
-    private boolean playerHasVerticalWinCondition(int player, Cell cell) {
+    public boolean playerHasVerticalWinCondition(int player, Cell cell) {
         Cell targetCell;
         boolean winAvailable = false;
         
@@ -88,7 +98,7 @@ public class FieldAnalyzer {
         return winAvailable;
     }
     
-    private boolean playerHasHorizontalWinCondition(int player, Cell cell) {
+    public boolean playerHasHorizontalWinCondition(int player, Cell cell) {
         Cell targetCell;
         boolean winAvailable = false;
         
@@ -140,7 +150,7 @@ public class FieldAnalyzer {
                     targetCell = field.getCell(cell.getCol()+i, cell.getRow());
                     if(targetCell.getChecker() != player) {
                         break;
-                    } else if(i == -1) {
+                    } else if(i == 2) {
                         winAvailable = true;
                     }
                 }
@@ -155,7 +165,7 @@ public class FieldAnalyzer {
                 targetCell = field.getCell(cell.getCol()+i, cell.getRow());
                 if(targetCell.getChecker() != player) {
                     break;
-                } else if(i == -1) {
+                } else if(i == 3) {
                     winAvailable = true;
                 }
             } else {
@@ -166,7 +176,7 @@ public class FieldAnalyzer {
         return winAvailable;
     }
     
-    private boolean playerHasEastDiagWinCondition(int player, Cell cell) {
+    public boolean playerHasEastDiagWinCondition(int player, Cell cell) {
         Cell targetCell;
         boolean winAvailable = false;
         
@@ -228,7 +238,7 @@ public class FieldAnalyzer {
         return winAvailable;
     }
     
-    private boolean playerHasWestDiagWinCondition(int player, Cell cell) {
+    public boolean playerHasWestDiagWinCondition(int player, Cell cell) {
         Cell targetCell;
         boolean winAvailable = false;
         
@@ -284,7 +294,26 @@ public class FieldAnalyzer {
             }
         }
         
+        //set 4: (+3, +3)
+        for(int i=1; i<4; i++) {
+            if(cell.getCol()+i <= 6 && cell.getRow()+i <= 5) {
+               targetCell = field.getCell(cell.getCol()+i, cell.getRow()+i);
+               if(targetCell.getChecker() != player) {
+                   break;
+               } else if(i == 3) {
+                   winAvailable = true;
+               }
+            } else {
+                break;
+            }
+        }
+        
         return winAvailable;
+    }
+    
+    //Test
+    public void setField(Field staticField) {
+        field = staticField;
     }
     
 }

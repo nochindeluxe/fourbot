@@ -16,24 +16,19 @@ public class Bot {
     }
     
     public String makeMove() {
-        String move = "";
-        
         fieldAnalyzer.updateField(gameState.getField());
         ArrayList<Cell> moves = fieldAnalyzer.getMoves();
         
         //If a win condition exists, play that move
         for(Cell cell : moves) {
             if(fieldAnalyzer.cellHasWinCondition(cell)) {
-                move = "place_disc "+String.valueOf(cell.getCol());
-                return move;
+                return "place_disc "+String.valueOf(cell.getCol());
             }
         }
         
         //Otherwise, choose a random move
         Random random = new Random();
         int randomMove = random.nextInt(moves.size());
-        move = "place_disc "+String.valueOf(moves.get(randomMove).getCol());
-        
-        return move;
+        return "place_disc "+String.valueOf(moves.get(randomMove).getCol());
     }
 }

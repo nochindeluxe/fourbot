@@ -8,7 +8,18 @@ public class Field {
     private int colNum;
     private int rowNum;
     
-    public Field() {}
+    public Field() {
+        //init field
+        cells = new ArrayList<>();
+        colNum = 7;
+        rowNum = 6;
+        for(int i=0; i<colNum; i++) {
+            for(int j=0; j<rowNum; j++) {
+                Cell cell = new Cell(i, j, 0);
+                cells.add(cell);
+            }
+        }
+    }
     
     //parses into (col, row)
     public void update(int[][] field) {
@@ -54,5 +65,15 @@ public class Field {
     
     public int getRowNum() {
         return rowNum;
+    }
+    
+    //Test
+    public void setCell(int col, int row, int checker) {
+        for(Cell cell : cells) {
+            if(cell.getCol() == col && cell.getRow() == row) {
+                cell.setChecker(checker);
+                break;
+            }
+        }
     }
 }
