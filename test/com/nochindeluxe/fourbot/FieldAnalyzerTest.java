@@ -11,17 +11,17 @@ public class FieldAnalyzerTest {
     public FieldAnalyzerTest() {
     }
 
-    @Test
-    public void testUpdateField() {
-        System.out.println("Testing updateField()...");
-        int[][] fieldUpdate = new int[7][6];
-        FieldAnalyzer instance = new FieldAnalyzer();
-        instance.updateField(fieldUpdate);
-        int colNum = instance.getColNum();
-        int rowNum = instance.getRowNum();
-        assertEquals(colNum, 7);
-        assertEquals(rowNum, 6);
-    }
+//    @Test
+//    public void testUpdateField() {
+//        System.out.println("Testing updateField()...");
+//        int[][] fieldUpdate = new int[7][6];
+//        FieldAnalyzer instance = new FieldAnalyzer();
+//        instance.updateField(fieldUpdate);
+//        int colNum = instance.getColNum();
+//        int rowNum = instance.getRowNum();
+//        assertEquals(colNum, 7);
+//        assertEquals(rowNum, 6);
+//    }
 
     @Test
     public void testGetMoves() {
@@ -32,8 +32,7 @@ public class FieldAnalyzerTest {
         mockField.setCell(0, 4, 1);
         mockField.setCell(0, 3, 2);
         mockField.setCell(6, 5, 1);
-        instance.setField(mockField);
-        ArrayList<Cell> moves = instance.getMoves();
+        ArrayList<Cell> moves = instance.getMoves(mockField);
         Cell move0 = moves.get(0);
         assertEquals(move0.getCol(), 0);
         assertEquals(move0.getRow(), 2);
@@ -50,9 +49,8 @@ public class FieldAnalyzerTest {
         mockField.setCell(3, 5, 1);
         mockField.setCell(3, 4, 1);
         mockField.setCell(3, 3, 1);
-        instance.setField(mockField);
         Cell mockCell = new Cell(3, 2, 1);
-        assertTrue(instance.playerHasVerticalWinCondition(1, mockCell));
+        assertTrue(instance.playerHasVerticalWinCondition(mockField, 1, mockCell));
     }
     
     @Test
@@ -63,33 +61,29 @@ public class FieldAnalyzerTest {
         mockField.setCell(0, 5, 2);
         mockField.setCell(1, 5, 2);
         mockField.setCell(2, 5, 2);
-        instance.setField(mockField);
         Cell mockCell = new Cell(3, 5, 0);
-        assertTrue(instance.playerHasHorizontalWinCondition(2, mockCell));
+        assertTrue(instance.playerHasHorizontalWinCondition(mockField, 2, mockCell));
         
         mockField = new Field();
         mockField.setCell(0, 5, 1);
         mockField.setCell(2, 5, 1);
         mockField.setCell(3, 5, 1);
-        instance.setField(mockField);
         mockCell = new Cell(1, 5, 0);
-        assertTrue(instance.playerHasHorizontalWinCondition(1, mockCell));
+        assertTrue(instance.playerHasHorizontalWinCondition(mockField, 1, mockCell));
         
         mockField = new Field();
         mockField.setCell(0, 5, 1);
         mockField.setCell(1, 5, 1);
         mockField.setCell(3, 5, 1);
-        instance.setField(mockField);
         mockCell = new Cell(2, 5, 0);
-        assertTrue(instance.playerHasHorizontalWinCondition(1, mockCell));
+        assertTrue(instance.playerHasHorizontalWinCondition(mockField, 1, mockCell));
         
         mockField = new Field();
         mockField.setCell(1, 5, 2);
         mockField.setCell(2, 5, 2);
         mockField.setCell(3, 5, 2);
-        instance.setField(mockField);
         mockCell = new Cell(0, 5, 0);
-        assertTrue(instance.playerHasHorizontalWinCondition(2, mockCell));
+        assertTrue(instance.playerHasHorizontalWinCondition(mockField, 2, mockCell));
     }
     
     @Test public void testPlayerHasEastDiagWinCondition() {
@@ -108,9 +102,8 @@ public class FieldAnalyzerTest {
             mockField.setCell(i, 3, 1);
         }
         
-        instance.setField(mockField);
         Cell mockCell = new Cell(3, 2, 1);
-        assertTrue(instance.playerHasEastDiagWinCondition(1, mockCell));
+        assertTrue(instance.playerHasEastDiagWinCondition(mockField, 1, mockCell));
     }
     
     @Test public void testPlayerHasWestDiagCondition() {
@@ -129,9 +122,8 @@ public class FieldAnalyzerTest {
             mockField.setCell(i, 3, 1);
         }
         
-        instance.setField(mockField);
         Cell mockCell = new Cell(3, 2, 1);
-        assertTrue(instance.playerHasWestDiagWinCondition(1, mockCell));
+        assertTrue(instance.playerHasWestDiagWinCondition(mockField, 1, mockCell));
     }
 
 }

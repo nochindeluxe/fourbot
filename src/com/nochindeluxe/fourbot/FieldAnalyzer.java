@@ -4,30 +4,30 @@ import java.util.ArrayList;
 
 public class FieldAnalyzer {
     
-    private Field field;
-    private int colNum, rowNum;
+    //private Field field;
+    //private int colNum, rowNum;
     
     public FieldAnalyzer() {
-        field = new Field();
-        colNum = field.getColNum();
-        rowNum = field.getRowNum();
+//        field = new Field();
+//        colNum = field.getColNum();
+//        rowNum = field.getRowNum();
     }
     
     public void updateField(int[][] fieldUpdate) {
-        colNum = fieldUpdate.length;
-        rowNum = fieldUpdate[0].length;
-        field.update(fieldUpdate);
+//        colNum = fieldUpdate.length;
+//        rowNum = fieldUpdate[0].length;
+//        field.update(fieldUpdate);
     }
     
-    public int getColNum() {
-        return colNum;
-    }
+//    public int getColNum() {
+//        return colNum;
+//    }
     
-    public int getRowNum() {
-        return rowNum;
-    }
+//    public int getRowNum() {
+//        return rowNum;
+//    }
     
-    public int getFirstOpenCell() {
+    public int getFirstOpenCell(Field field) {
         int openCellCol = -1;
         ArrayList<Cell> cells = field.getCells();
         for(Cell cell : cells) {
@@ -39,11 +39,11 @@ public class FieldAnalyzer {
         return openCellCol;
     }
     
-    public ArrayList<Cell> getMoves() {
+    public ArrayList<Cell> getMoves(Field field) {
         ArrayList<Cell> moves = new ArrayList<>();
-        for(int i=0; i<colNum; i++) {
+        for(int i=0; i<field.getColNum(); i++) {
             ArrayList<Cell> colCells = field.getCol(i);
-            Cell openCell = getOpenCellForCol(colCells);
+            Cell openCell = getOpenCellForCol(field, colCells);
             if(openCell != null) {
                 moves.add(openCell);
             }
@@ -51,9 +51,9 @@ public class FieldAnalyzer {
         return moves;
     }
     
-    public Cell getOpenCellForCol(ArrayList<Cell> colCells) {
-        int openCells = rowNum;
-        for(int i=rowNum-1; i>=0; i--) {
+    public Cell getOpenCellForCol(Field field, ArrayList<Cell> colCells) {
+        int openCells = field.getRowNum();
+        for(int i=field.getRowNum()-1; i>=0; i--) {
             Cell cell = colCells.get(i);
             if(cell.getChecker() > 0) {
                 openCells--;
@@ -64,22 +64,22 @@ public class FieldAnalyzer {
         return null;
     }
     
-    public boolean cellHasWinCondition(Cell cell) {
+    public boolean cellHasWinCondition(Field field, Cell cell) {
 	return 
-                playerHasVerticalWinCondition(1, cell) ||
-                playerHasVerticalWinCondition(2, cell) ||
+                playerHasVerticalWinCondition(field, 1, cell) ||
+                playerHasVerticalWinCondition(field, 2, cell) ||
                 
-                playerHasHorizontalWinCondition(1, cell) ||
-                playerHasHorizontalWinCondition(2, cell) ||
+                playerHasHorizontalWinCondition(field, 1, cell) ||
+                playerHasHorizontalWinCondition(field, 2, cell) ||
                 
-                playerHasEastDiagWinCondition(1, cell) ||
-                playerHasEastDiagWinCondition(2, cell) ||
+                playerHasEastDiagWinCondition(field, 1, cell) ||
+                playerHasEastDiagWinCondition(field, 2, cell) ||
                 
-                playerHasWestDiagWinCondition(1, cell) ||
-                playerHasWestDiagWinCondition(2, cell);
+                playerHasWestDiagWinCondition(field, 1, cell) ||
+                playerHasWestDiagWinCondition(field, 2, cell);
     }
     
-    public boolean playerHasVerticalWinCondition(int player, Cell cell) {
+    public boolean playerHasVerticalWinCondition(Field field, int player, Cell cell) {
         Cell targetCell;
         boolean winAvailable = false;
         
@@ -98,7 +98,7 @@ public class FieldAnalyzer {
         return winAvailable;
     }
     
-    public boolean playerHasHorizontalWinCondition(int player, Cell cell) {
+    public boolean playerHasHorizontalWinCondition(Field field, int player, Cell cell) {
         Cell targetCell;
         boolean winAvailable = false;
         
@@ -176,7 +176,7 @@ public class FieldAnalyzer {
         return winAvailable;
     }
     
-    public boolean playerHasEastDiagWinCondition(int player, Cell cell) {
+    public boolean playerHasEastDiagWinCondition(Field field, int player, Cell cell) {
         Cell targetCell;
         boolean winAvailable = false;
         
@@ -238,7 +238,7 @@ public class FieldAnalyzer {
         return winAvailable;
     }
     
-    public boolean playerHasWestDiagWinCondition(int player, Cell cell) {
+    public boolean playerHasWestDiagWinCondition(Field field, int player, Cell cell) {
         Cell targetCell;
         boolean winAvailable = false;
         
@@ -312,8 +312,12 @@ public class FieldAnalyzer {
     }
     
     //Test
-    public void setField(Field staticField) {
-        field = staticField;
-    }
+//    public void setField(Field staticField) {
+//        field = staticField;
+//    }
+    
+//    public Field getField() {
+//        return field;
+//    }
     
 }
