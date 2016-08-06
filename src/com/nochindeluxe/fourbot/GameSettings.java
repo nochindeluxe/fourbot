@@ -6,7 +6,7 @@ public class GameSettings {
     private int timePerMove;
     private String p1, p2;
     private String botName;
-    private int botId;
+    private int botId, oppBotId;
     private int colNum, rowNum;
     
     public GameSettings() {
@@ -41,6 +41,7 @@ public class GameSettings {
                 break;
             case "your_botid":
                 botId = Integer.parseInt(value);
+                oppBotId = (botId == 1) ? 2 : 1;
                 break;
             case "field_columns":
                 colNum = Integer.parseInt(value);
@@ -76,6 +77,10 @@ public class GameSettings {
     
     public int getBotId() {
         return botId;
+    }
+    
+    public int getOppBotId() {
+        return oppBotId;
     }
     
     public int getColNum() {

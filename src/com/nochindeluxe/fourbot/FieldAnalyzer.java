@@ -64,19 +64,11 @@ public class FieldAnalyzer {
         return null;
     }
     
-    public boolean cellHasWinCondition(Field field, Cell cell) {
-	return 
-                playerHasVerticalWinCondition(field, 1, cell) ||
-                playerHasVerticalWinCondition(field, 2, cell) ||
-                
-                playerHasHorizontalWinCondition(field, 1, cell) ||
-                playerHasHorizontalWinCondition(field, 2, cell) ||
-                
-                playerHasEastDiagWinCondition(field, 1, cell) ||
-                playerHasEastDiagWinCondition(field, 2, cell) ||
-                
-                playerHasWestDiagWinCondition(field, 1, cell) ||
-                playerHasWestDiagWinCondition(field, 2, cell);
+    public boolean cellHasWinCondition(Field field, int player, Cell cell) {
+	return playerHasVerticalWinCondition(field, player, cell) ||
+                playerHasHorizontalWinCondition(field, player, cell) ||
+                playerHasEastDiagWinCondition(field, player, cell) ||
+                playerHasWestDiagWinCondition(field, player, cell);
     }
     
     public boolean playerHasVerticalWinCondition(Field field, int player, Cell cell) {

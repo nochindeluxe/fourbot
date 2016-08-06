@@ -11,18 +11,6 @@ public class FieldAnalyzerTest {
     public FieldAnalyzerTest() {
     }
 
-//    @Test
-//    public void testUpdateField() {
-//        System.out.println("Testing updateField()...");
-//        int[][] fieldUpdate = new int[7][6];
-//        FieldAnalyzer instance = new FieldAnalyzer();
-//        instance.updateField(fieldUpdate);
-//        int colNum = instance.getColNum();
-//        int rowNum = instance.getRowNum();
-//        assertEquals(colNum, 7);
-//        assertEquals(rowNum, 6);
-//    }
-
     @Test
     public void testGetMoves() {
         System.out.println("Testing getMoves()...");
@@ -125,5 +113,4 @@ public class FieldAnalyzerTest {
         Cell mockCell = new Cell(3, 2, 1);
         assertTrue(instance.playerHasWestDiagWinCondition(mockField, 1, mockCell));
     }
-
 }

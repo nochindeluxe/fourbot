@@ -67,7 +67,6 @@ public class Field {
         return rowNum;
     }
     
-    //Test
     public void setCell(int col, int row, int checker) {
         for(Cell cell : cells) {
             if(cell.getCol() == col && cell.getRow() == row) {
@@ -75,5 +74,38 @@ public class Field {
                 break;
             }
         }
+    }
+    
+    public void setField(Field newField) {
+        ArrayList<Cell> newCells = new ArrayList<>();
+        for(Cell cell : newField.getCells()) {
+            Cell newCell = new Cell(cell.getCol(), cell.getRow(), cell.getChecker());
+            newCells.add(newCell);
+        }
+        cells = newCells;
+    }
+    
+    public void setField(String fieldString) {
+        String[] rows = fieldString.split(";");
+        int[][] fieldArray = new int[rows[0].split(",").length][rows.length];
+        for(int i=0; i<rows.length; i++) {
+            String[] rowCells = rows[i].split(",");
+            for(int j=0; j<rowCells.length; j++) {
+                fieldArray[j][i] = Integer.parseInt(rowCells[j]);   
+            }
+        }
+        
+        colNum = fieldArray.length;
+        rowNum = fieldArray[0].length;
+        
+        ArrayList<Cell> newCells = new ArrayList<>();
+        for(int i=0; i<fieldArray.length; i++) {
+            for(int j=0; j<fieldArray[0].length; j++) {
+                Cell cell = new Cell(i, j, fieldArray[i][j]);
+                newCells.add(cell);
+            }
+        }
+        
+        cells = newCells;
     }
 }
